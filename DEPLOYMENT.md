@@ -50,7 +50,7 @@ After deployment:
 2. Click "Secrets"
 3. Add your API key in TOML format:
 ```toml
-GOOGLE_API_KEY = "AIzaSyCYgPZ9JkicbwGjRUqmCvvaVS6WDYSyAfo"
+GOOGLE_API_KEY = "your-google-api-key-here"
 ```
 
 4. Save and the app will automatically redeploy
