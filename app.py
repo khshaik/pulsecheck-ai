@@ -1,13 +1,23 @@
 import streamlit as st
 import google.generativeai as genai
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 st.set_page_config(page_title="PulseCheck AI", page_icon="🚀")
 
-# 1. Setup API Key
+# 1. Setup API Key - Try Streamlit Secrets first (production), then .env (local)
+api_key = None
 if "GOOGLE_API_KEY" in st.secrets:
-    genai.configure(api_key=st.secrets["GOOGLE_API_KEY"])
+    api_key = st.secrets["GOOGLE_API_KEY"]
+elif os.getenv("GOOGLE_API_KEY"):
+    api_key = os.getenv("GOOGLE_API_KEY")
+
+if api_key:
+    genai.configure(api_key=api_key)
 else:
-    st.error("Please add your GOOGLE_API_KEY to Streamlit Secrets.")
+    st.error("Please add your GOOGLE_API_KEY to Streamlit Secrets or .env file.")
     st.stop()
 
 # 2. Define the Master Prompt (The Rulebook)
